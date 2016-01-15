@@ -1,6 +1,6 @@
 {
   "author": "4ok",
-  "name": "bem-app",
+  "name": "app-core",
   "version": "0.0.0",
   "engines": {
     "node": ">=4.0.0"
