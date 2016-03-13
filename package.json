@@ -6,15 +6,18 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
+    "config": "^1.16.0",
+    "connect": "^3.4.0",
+    "connect-query": "^0.2.0",
+    "errorhandler": "~1.4.2",
     "lodash.get": "^4.0.0",
     "lodash.has": "^4.0.0",
     "lodash.set": "^4.0.0",
-    "connect": "^3.4.0",
+    "app-gate": "git+https://github.com/4ok/app-git.git",
     "logger": "git+https://github.com/4ok/logger.git",
-    "config": "^1.16.0",
-    "errorhandler": "~1.4.2",
     "serve-static": "^1.10.0",
-    "susanin": "^1.0.1"
+    "susanin": "^1.0.1",
+    "url": "^0.11.0"
   },
   "private": true
 }

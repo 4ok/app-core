@@ -1,21 +1,22 @@
 'use strict';
 
-var app          = require('connect')();
-var logger       = require('logger')();
-var config       = require('config');
-var errorhandler = require('errorhandler');
-var serveStatic  = require('serve-static');
-var Router       = require('./router.js');
-var Http         = require('./http');
+const app          = require('connect')();
+const logger       = require('logger')();
+const config       = require('config');
+const errorhandler = require('errorhandler');
+const connectQuery = require('connect-query');
+const serveStatic  = require('serve-static');
+const Router       = require('./router');
+const Http         = require('./http');
 
 const ACTION_EPILOG = 'Action';
 
-class Application {
+module.exports = class {
 
-    constructor(routes, controllersPath) {
-        this._routes          = routes;
-        this._controllersPath = controllersPath;
-        this._middlewares     = [];
+    constructor(routes, controllersDir) {
+        this._routes         = routes;
+        this._controllersDir = controllersDir;
+        this._middlewares    = [];
     }
 
     start() {
@@ -29,7 +30,7 @@ class Application {
     }
 
     _initMiddlewares() {
-        var middlewares = this._middlewares.concat(this._getDefaultMiddlewares());
+        const middlewares = this._middlewares.concat(this._getDefaultMiddlewares());
 
         for (let middleware of middlewares) {
             app.use(middleware);
@@ -40,7 +41,9 @@ class Application {
 
         return [
             errorhandler(),
+            connectQuery(),
             serveStatic(config.rootPath + '/public'), // TODO for dev, move to nginx
+            serveStatic(config.rootPath + '/bem'), // TODO for dev, move to nginx
             this._onRequest.bind(this)
         ];
     }
@@ -51,8 +54,8 @@ class Application {
         this._logRequestParams(request);
 
         if (request.route) {
-            var http        = new Http(request, response);
-            var routeParams = request.route.params;
+            const http        = new Http(request, response);
+            const routeParams = request.route.params;
 
             this._callController(routeParams.controller, routeParams.action, http);
         } else {
@@ -61,39 +64,37 @@ class Application {
     }
 
     _findRoute(request) {
-        var router = new Router(this._routes);
+        const router = new Router(this._routes);
 
         return router.findRoute(request.url);
     }
 
-    _logRequestParams(req) {
+    _logRequestParams(request) {
         logger
             .break()
-            .info('Request uri: %s', req.url);
+            .info('Request uri: %s', request.url);
 
-        if (req.route) {
+        if (request.route) {
             logger
-                .info('Route name:', req.route.name)
-                .info('Route pattern:', req.route.pattern)
-                .info('Route params:', req.route.params);
+                .info('Route name:', request.route.name)
+                .info('Route params:', request.route.params);
         }
 
-        if (req.query !== undefined) {
-            logger.info('Query params:', req.query);
+        if (request.query !== undefined) {
+            logger.info('Query params:', request.query);
         }
 
-        if (req.body !== undefined) {
-            logger.info('Post params:', req.body);
+        if (request.body !== undefined) {
+            logger.info('Post params:', request.body);
         }
     }
 
-    _callController(controllerName, actionName, http) {
-        var controllerPath = this._controllersPath + '/' + controllerName;
-        var Controller     = require(controllerPath);
-        var controller     = new Controller(http);
-
-        var actionFullName = actionName + ACTION_EPILOG
-        var action         = controller[actionFullName];
+    _callController(controllerName, actionName, http) { // TODO
+        const controllerPath = this._controllersDir + '/' + controllerName;
+        const Controller     = require(controllerPath);
+        const controller     = new Controller(http);
+        const actionFullName = actionName + ACTION_EPILOG
+        const action         = controller[actionFullName];
 
         action.call(controller);
     }
@@ -116,8 +117,8 @@ class Application {
     _logUncaughtException() {
         process.stdin
             .resume()
-            .on('uncaughtException', function (err) {
-                var message = (err.getMessage)
+            .on('uncaughtException', (err) => {
+                const message = (err.getMessage)
                     ? err.getMessage()
                     : (err.stack || err);
 
@@ -134,5 +135,3 @@ class Application {
         );
     }
 }
-
-module.exports = Application;

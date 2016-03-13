@@ -12,8 +12,8 @@ module.exports = class {
     }
 
     _getHelper(name) { // TODO
-        var helperPath = '../' + name;
-        var result     = require(helperPath);
+        const helperPath = '../../helpers/' + name;
+        const result     = require(helperPath);
 
         return new result(this._http);
     }

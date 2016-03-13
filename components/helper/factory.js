@@ -5,29 +5,32 @@ module.exports = class {
     constructor(http, helpersDirs) {
         this._http = http;
         this._helpersDirs = helpersDirs;
+        this._helpers = {};
     }
 
-    getHelper(name) {
-        var result;
+    getHelper(name) { // TODO: cache instances
 
-        for (let dir of this._helpersDirs) {
-            let helperPath;
+        if (!this._helpers[name]) {
 
-            try {
-                helperPath = require.resolve(dir + '/' + name + '.js');
-            } catch (e) {}
+            for (let dir of this._helpersDirs) {
+                let helperPath;
 
-            if (helperPath) {
-                let Helper = require(helperPath);
-                result = new Helper(this._http);
-                break;
+                try {
+                    helperPath = require.resolve(dir + '/' + name);
+                } catch (e) {}
+
+                if (helperPath) {
+                    const Helper = require(helperPath);
+                    this._helpers[name] = new Helper(this._http);
+                    break;
+                }
             }
         }
 
-        if (!result) {
+        if (!this._helpers[name]) {
             throw new Error('Helper "' + name + '" not found');
         }
 
-        return result;
+        return this._helpers[name];
     }
 }

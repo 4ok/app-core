@@ -1,6 +1,6 @@
 'use strict';
 
-var Helper = require('../components/helper/abstract.js');
+const Helper = require('../components/helper/abstract.js');
 
 module.exports = class extends Helper {
 

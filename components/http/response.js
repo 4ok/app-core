@@ -1,6 +1,6 @@
 'use strict';
 
-var DEFAULT_OPTIONS = {
+const DEFAULT_OPTIONS = {
     text404 : 'Error 404'
 };
 
@@ -12,7 +12,7 @@ class Response {
     }
 
     setHeader(key, value) {
-        var headers = {};
+        let headers = {};
 
         if (typeof key == 'object') {
             headers = key;

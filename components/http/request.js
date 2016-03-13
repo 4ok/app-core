@@ -1,8 +1,9 @@
 'use strict';
 
-var has = require('lodash.has');
-var get = require('lodash.get');
-var set = require('lodash.set');
+const has = require('lodash.has');
+const get = require('lodash.get');
+const set = require('lodash.set');
+const url = require('url');
 
 module.exports = class {
 
@@ -11,7 +12,12 @@ module.exports = class {
     }
 
     get url() {
-        return this._request.url;
+
+        if (!this._url) {
+            this._url = url.parse(this._request.url);
+        }
+
+        return this._url;
     }
 
     hasParam(path) {

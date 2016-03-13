@@ -1,6 +1,6 @@
 'use strict';
 
-var Susanin = require('susanin');
+const Susanin = require('susanin');
 
 const DEFAULT_PARAMS = {
     controller : 'index',
@@ -22,18 +22,21 @@ class Router {
     }
 
     findRoute(url) {
-        var found = this._susanin.findFirst(url);
-        var result;
+        const found = this._susanin.findFirst(url);
+        let result;
 
         if (found) {
-            var route       = found[0];
-            var routeParams = found[1];
-            var options     = route._options;
+            const route  = found[0];
+            const params = Object.assign(
+                {},
+                DEFAULT_PARAMS,
+                route.getData().params || {},
+                found[1] || {}
+            );
 
             result = {
                 name      : route.getName(),
-                pattern   : options.pattern.split('(')[0],
-                params    : Object.assign({}, DEFAULT_PARAMS, route.getData(), routeParams),
+                params    : params,
                 getByName : this._susanin.getRouteByName.bind(this._susanin)
             };
         }
@@ -42,7 +45,17 @@ class Router {
     }
 
     _addOneRoute(route) {
-        this._susanin.addRoute(route);
+        let params = Object.assign({
+            useQueryString : false,
+        }, route);
+
+        params.data = {
+            params : route.params || {}
+        }
+
+        delete params.params;
+
+        this._susanin.addRoute(params);
     }
 }
 
