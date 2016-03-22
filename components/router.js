@@ -7,7 +7,7 @@ const DEFAULT_PARAMS = {
     action     : 'index'
 };
 
-class Router {
+module.exports = class {
 
     constructor(routes) {
         this._susanin = Susanin();
@@ -57,6 +57,4 @@ class Router {
 
         this._susanin.addRoute(params);
     }
-}
-
-module.exports = Router;
+};
