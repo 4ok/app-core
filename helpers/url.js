@@ -2,7 +2,7 @@
 
 const qs     = require('qs');
 const config = require('config');
-const Helper = require('../components/helper/abstract.js');
+const Helper = require('../components/helper/abstract');
 
 const env   = process.env.NODE_ENV || 'development';
 const isDev = (env === 'development');

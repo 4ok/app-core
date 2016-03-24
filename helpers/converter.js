@@ -1,6 +1,6 @@
 'use strict';
 
-const Helper          = require('app-core/components/helper/abstract.js');
+const Helper          = require('app-core/components/helper/abstract');
 const markdownBemjson = require('markdown-bemjson')();
 const string          = require('underscore.string');
 

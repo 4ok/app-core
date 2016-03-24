@@ -1,7 +1,7 @@
 'use strict';
 
-const Request  = require('./request.js');
-const Response = require('./response.js');
+const Request  = require('./request');
+const Response = require('./response');
 
 module.exports = class {
 
