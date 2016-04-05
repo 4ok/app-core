@@ -1,7 +1,6 @@
 'use strict';
 
-const logger = require('logger')();
-const Gate   = require('app-gate');
+const Gate = require('app-gate');
 const Helper = require('../components/helper/abstract');
 
 module.exports = class extends Helper {

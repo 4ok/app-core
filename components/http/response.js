@@ -8,13 +8,13 @@ class Response {
 
     constructor(response, options) {
         this._response = response;
-        this._options  = Object.assign({}, DEFAULT_OPTIONS, options || {});
+        this._options = Object.assign({}, DEFAULT_OPTIONS, options || {});
     }
 
     setHeader(key, value) {
         let headers = {};
 
-        if (typeof key == 'object') {
+        if (typeof key === 'object') {
             headers = key;
         } else {
             headers[key] = value;
@@ -28,20 +28,16 @@ class Response {
     }
 
     redirect(url, code) {
-        code = code || 301;
-
-        this._response.writeHead(code, {
-            Location: url
+        this._response.writeHead(code || 301, {
+            Location : url
         });
 
         return this.send();
     }
 
     send404(text) {
-        text = text || this._options.text404;
-
         this._response.statusCode = 404;
-        this._response.end(text);
+        this._response.end(text || this._options.text404);
 
         return this;
     }

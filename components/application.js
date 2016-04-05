@@ -1,22 +1,22 @@
 'use strict';
 
-const app          = require('connect')();
-const logger       = require('logger')();
-const config       = require('config');
+const app = require('connect')();
+const logger = require('logger')();
+const config = require('config');
 const errorhandler = require('errorhandler');
 const connectQuery = require('connect-query');
-const serveStatic  = require('serve-static');
-const Router       = require('./router');
-const Http         = require('./http');
+const serveStatic = require('serve-static');
+const Router = require('./router');
+const Http = require('./http');
 
 const ACTION_EPILOG = 'Action';
 
 module.exports = class {
 
     constructor(routes, controllersDir) {
-        this._routes         = routes;
+        this._routes = routes;
         this._controllersDir = controllersDir;
-        this._middlewares    = [];
+        this._middlewares = [];
     }
 
     start() {
@@ -38,7 +38,6 @@ module.exports = class {
     }
 
     _getDefaultMiddlewares() {
-
         return [
             errorhandler(),
             connectQuery(),
@@ -54,7 +53,7 @@ module.exports = class {
         this._logRequestParams(request);
 
         if (request.route) {
-            const http        = new Http(request, response);
+            const http = new Http(request, response);
             const routeParams = request.route.params;
 
             this._callController(routeParams.controller, routeParams.action, http);
@@ -91,10 +90,10 @@ module.exports = class {
 
     _callController(controllerName, actionName, http) { // TODO
         const controllerPath = this._controllersDir + '/' + controllerName;
-        const Controller     = require(controllerPath);
-        const controller     = new Controller(http);
-        const actionFullName = actionName + ACTION_EPILOG
-        const action         = controller[actionFullName];
+        const Controller = require(controllerPath);
+        const controller = new Controller(http);
+        const actionFullName = actionName + ACTION_EPILOG;
+        const action = controller[actionFullName];
 
         action.call(controller);
     }
@@ -134,4 +133,4 @@ module.exports = class {
             config.server.port
         );
     }
-}
+};

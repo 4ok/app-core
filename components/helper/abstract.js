@@ -3,7 +3,7 @@
 module.exports = class {
 
     constructor(http) {
-        this._http        = http;
+        this._http = http;
         this._httpRequest = http.request;
     }
 
@@ -13,8 +13,8 @@ module.exports = class {
 
     _getHelper(name) { // TODO
         const helperPath = '../../helpers/' + name;
-        const result     = require(helperPath);
+        const Helper = require(helperPath);
 
-        return new result(this._http);
+        return new Helper(this._http);
     }
 };

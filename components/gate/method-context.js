@@ -9,4 +9,4 @@ module.exports = class {
     get param() {
         return this._requestParam;
     }
-}
+};

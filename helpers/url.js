@@ -1,16 +1,14 @@
 'use strict';
 
-const qs     = require('qs');
-const config = require('config');
+const qs = require('qs');
 const Helper = require('../components/helper/abstract');
 
-const env   = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development';
 const isDev = (env === 'development');
 
 module.exports = class extends Helper {
 
     getLib(name, version, tech) {
-
         return [
             '//cdnjs.cloudflare.com/ajax/libs/',
             name,
@@ -21,7 +19,7 @@ module.exports = class extends Helper {
 
     getBundleFile(tech) {
         const pathProlog = (isDev) ? '' : '../..';
-        const bundle     = 'index';
+        const bundle = 'index';
 
         return [
             pathProlog,
@@ -42,17 +40,18 @@ module.exports = class extends Helper {
 
         return items.map(item => {
             const route = item.route || {
-                    name   : item.type,
-                    params : {
-                        article_alias_chain : item.path
-                    }
-                };
-            item.url      = this.getByRoute(route.name, route.params);
+                name : item.type,
+                params : {
+                    article_alias_chain : item.path
+                }
+            };
+
+            item.url = this.getByRoute(route.name, route.params);
             const itemUrl = this._getUrlWithoutSuffix(item.url);
 
-            if (itemUrl == currentUrl) {
+            if (itemUrl === currentUrl) {
                 item.state = 'active';
-            } else if (itemUrl != '/' && currentUrl.indexOf(itemUrl + '/') == 0) {
+            } else if (itemUrl !== '/' && currentUrl.indexOf(itemUrl + '/') === 0) {
                 item.state = 'active-child';
             }
 
@@ -61,11 +60,10 @@ module.exports = class extends Helper {
             }
 
             return item;
-        })
+        });
     }
 
     _getUrlWithoutSuffix(url) {
-
         return (url.indexOf('.') > 0)
             ? url
                 .split('.')
@@ -83,7 +81,6 @@ module.exports = class extends Helper {
     }
 
     getQueryString(params) {
-
         return (params)
             ? '?' + qs.stringify(params)
             : '';

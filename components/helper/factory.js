@@ -17,10 +17,13 @@ module.exports = class {
 
                 try {
                     helperPath = require.resolve(dir + '/' + name);
-                } catch (e) {}
+                } catch (e) {
+                    // Do nothing
+                }
 
                 if (helperPath) {
                     const Helper = require(helperPath);
+
                     this._helpers[name] = new Helper(this._http);
                     break;
                 }
@@ -33,4 +36,4 @@ module.exports = class {
 
         return this._helpers[name];
     }
-}
+};

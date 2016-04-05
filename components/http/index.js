@@ -1,12 +1,12 @@
 'use strict';
 
-const Request  = require('./request');
+const Request = require('./request');
 const Response = require('./response');
 
 module.exports = class {
 
     constructor(request, response) {
-        this._request  = new Request(request);
+        this._request = new Request(request);
         this._response = new Response(response);
     }
 

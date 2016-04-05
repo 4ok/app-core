@@ -1,14 +1,14 @@
 module.exports = {
 
     // Environment
-    env      : 'development',
+    env : 'development',
     isDevEnv : true,
 
     // Server
     server : {
         scheme : 'http',
-        host   : 'localhost',
-        port   : 3000
+        host : 'localhost',
+        port : 3000
     },
 
     // Databases
@@ -22,8 +22,8 @@ module.exports = {
     // Session
     session : { // TODO options
         options : {
-            secret            : 'development',
-            resave            : true,
+            secret : 'development',
+            resave : true,
             saveUninitialized : true
         }
     }

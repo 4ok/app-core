@@ -1,16 +1,16 @@
 'use strict';
 
-const Susanin = require('susanin');
+const susanin = require('susanin');
 
 const DEFAULT_PARAMS = {
     controller : 'index',
-    action     : 'index'
+    action : 'index'
 };
 
 module.exports = class {
 
     constructor(routes) {
-        this._susanin = Susanin();
+        this._susanin = susanin();
 
         if (routes) {
             this.addRoute(routes);
@@ -26,7 +26,7 @@ module.exports = class {
         let result;
 
         if (found) {
-            const route  = found[0];
+            const route = found[0];
             const params = Object.assign(
                 {},
                 DEFAULT_PARAMS,
@@ -35,8 +35,8 @@ module.exports = class {
             );
 
             result = {
-                name      : route.getName(),
-                params    : params,
+                name : route.getName(),
+                params : params,
                 getByName : this._susanin.getRouteByName.bind(this._susanin)
             };
         }
@@ -46,12 +46,12 @@ module.exports = class {
 
     _addOneRoute(route) {
         let params = Object.assign({
-            useQueryString : false,
+            useQueryString : false
         }, route);
 
         params.data = {
             params : route.params || {}
-        }
+        };
 
         delete params.params;
 

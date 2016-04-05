@@ -11,13 +11,13 @@ module.exports = class extends Helper {
     getParam(name, def) {
         return this._request.getParam(name) || def; // TODO
 
-        //return this.hasParam(name)
+        // return this.hasParam(name)
         //    ? this._getRequest().getParam(name)
         //    : def;
     }
 
-    //hasParam: function (name) {
+    // hasParam: function (name) {
     //
     //    return this._getRequest().getParam(name);
-    //}
+    // }
 };

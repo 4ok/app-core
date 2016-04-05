@@ -1,6 +1,6 @@
 'use strict';
 
-const logger      = require('logger')();
+const logger = require('logger')();
 const ReqestParam = require('./request-param');
 
 module.exports = class {
@@ -26,9 +26,8 @@ module.exports = class {
     }
 
     _onError(result) {
-
-        if (typeof result == 'object' && result.constructor.name == 'BreakPromise') {
-            const type  = result.getType();
+        if (typeof result === 'object' && result.constructor.name === 'BreakPromise') {
+            const type = result.getType();
             let message = result.getMessage();
 
             if (!Array.isArray(message)) {

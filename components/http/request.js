@@ -25,7 +25,6 @@ module.exports = class {
     }
 
     getParam(path, def) {
-
         return (this.hasParam(path))
             ? get(this._request, path)
             : def;

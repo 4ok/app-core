@@ -19,5 +19,12 @@
     "susanin": "^1.0.1",
     "url": "^0.11.0"
   },
-  "private": true
+  "private": true,
+  "scripts": {
+    "test": "node_modules/.bin/eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^2.7.0",
+    "eslint-config-airbnb": "^6.2.0"
+  }
 }
