@@ -12,10 +12,7 @@ module.exports = class {
     }
 
     get url() {
-
-        if (!this._url) {
-            this._url = url.parse(this._request.url);
-        }
+        this._url = this._url || url.parse(this._request.url);
 
         return this._url;
     }
