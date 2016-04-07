@@ -116,7 +116,7 @@ module.exports = class {
     _logUncaughtException() {
         process.stdin
             .resume()
-            .on('uncaughtException', (err) => {
+            .on('uncaughtException', err => {
                 const message = (err.getMessage)
                     ? err.getMessage()
                     : (err.stack || err);
