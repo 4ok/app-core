@@ -1,7 +1,7 @@
 'use strict';
 
 const DEFAULT_OPTIONS = {
-    text404 : 'Error 404'
+    text404 : 'Error 404',
 };
 
 class Response {
@@ -20,7 +20,7 @@ class Response {
             headers[key] = value;
         }
 
-        for (let name of Object.keys(headers)) {
+        for (const name of Object.keys(headers)) {
             this._response.setHeader(name, headers[name]);
         }
 
@@ -29,15 +29,17 @@ class Response {
 
     redirect(url, code) {
         this._response.writeHead(code || 301, {
-            Location : url
+            Location : url,
         });
 
         return this.send();
     }
 
     send404(text) {
+        text = text || this._options.text404;
+
         this._response.statusCode = 404;
-        this._response.end(text || this._options.text404);
+        this._response.end(text);
 
         return this;
     }

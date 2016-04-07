@@ -12,7 +12,7 @@ module.exports = class {
 
         if (!this._helpers[name]) {
 
-            for (let dir of this._helpersDirs) {
+            for (const dir of this._helpersDirs) {
                 let helperPath;
 
                 try {

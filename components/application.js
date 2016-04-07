@@ -32,7 +32,7 @@ module.exports = class {
     _initMiddlewares() {
         const middlewares = this._middlewares.concat(this._getDefaultMiddlewares());
 
-        for (let middleware of middlewares) {
+        for (const middleware of middlewares) {
             app.use(middleware);
         }
     }
@@ -43,7 +43,7 @@ module.exports = class {
             connectQuery(),
             serveStatic(config.rootPath + '/public'), // TODO for dev, move to nginx
             serveStatic(config.rootPath + '/bem'), // TODO for dev, move to nginx
-            this._onRequest.bind(this)
+            this._onRequest.bind(this),
         ];
     }
 

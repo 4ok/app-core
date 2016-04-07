@@ -13,7 +13,7 @@ module.exports = class extends Helper {
             '//cdnjs.cloudflare.com/ajax/libs/',
             name,
             version,
-            name + '.min.' + tech
+            name + '.min.' + tech,
         ].join('/');
     }
 
@@ -25,7 +25,7 @@ module.exports = class extends Helper {
             pathProlog,
             'bundles',
             bundle,
-            bundle + '.final.' + tech
+            bundle + '.final.' + tech,
         ].join('/');
     }
 
@@ -42,8 +42,8 @@ module.exports = class extends Helper {
             const route = item.route || {
                 name : item.type,
                 params : {
-                    article_alias_chain : item.path
-                }
+                    article_alias_chain : item.path,
+                },
             };
 
             item.url = this.getByRoute(route.name, route.params);

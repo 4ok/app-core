@@ -4,7 +4,7 @@ const susanin = require('susanin');
 
 const DEFAULT_PARAMS = {
     controller : 'index',
-    action : 'index'
+    action : 'index',
 };
 
 module.exports = class {
@@ -36,8 +36,8 @@ module.exports = class {
 
             result = {
                 name : route.getName(),
-                params : params,
-                getByName : this._susanin.getRouteByName.bind(this._susanin)
+                getByName : this._susanin.getRouteByName.bind(this._susanin),
+                params,
             };
         }
 
@@ -45,12 +45,12 @@ module.exports = class {
     }
 
     _addOneRoute(route) {
-        let params = Object.assign({
-            useQueryString : false
+        const params = Object.assign({
+            useQueryString : false,
         }, route);
 
         params.data = {
-            params : route.params || {}
+            params : route.params || {},
         };
 
         delete params.params;
