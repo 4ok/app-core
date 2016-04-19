@@ -25,7 +25,7 @@ module.exports = class extends Helper {
             pathProlog,
             'bundles',
             bundle,
-            bundle + '.final.' + tech,
+            bundle + '.' + tech,
         ].join('/');
     }
 
