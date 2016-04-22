@@ -1,24 +1,54 @@
 'use strict';
 
+const get = require('lodash.get');
+
 module.exports = class {
 
     constructor(http) {
         this._request = http.request;
+        this._setParams();
+    }
+
+    get(path) {
+        let result;
+
+        Object
+            .keys(this._params)
+            .some(key => {
+                return result = this._get(path, key);
+            });
+
+        return result;
     }
 
     route(path) {
-        return this._get('route.params.' + path);
+        return this._get(path, 'route');
     }
 
     query(path) {
-        return this._get('query.' + path);
+        return this._get(path, 'query');
     }
 
     post(path) {
-        return this._get('body.' + path);
+        return this._get(path, 'body');
     }
 
-    _get(path) {
-        return this._request.getParam(path);
+    _get(path, prolog) {
+
+        if (prolog) {
+            path = prolog + '.' + path;
+        }
+
+        return get(this._params, path);
+    }
+
+    _setParams() {
+        const getParam = this._request.getParam.bind(this._request);
+
+        this._params = {
+            query : getParam('query'),
+            route : getParam('route.params'),
+            post : getParam('body'),
+        };
     }
 };

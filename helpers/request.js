@@ -1,23 +1,20 @@
 'use strict';
 
 const Helper = require('../components/helper/abstract');
+const RequestParam = require('../components/request-param');
 
 module.exports = class extends Helper {
 
-    get(name) {
-        return this._request.getParam(name);
+    constructor(http) {
+        super(http);
+        this._requestParam = new RequestParam(http);
     }
 
-    getParam(name, def) {
-        return this._request.getParam(name) || def; // TODO
-
-        // return this.hasParam(name)
-        //    ? this._getRequest().getParam(name)
-        //    : def;
+    get routeName() {
+        return this._request.getParam('route.name');
     }
 
-    // hasParam: function (name) {
-    //
-    //    return this._getRequest().getParam(name);
-    // }
+    get param() {
+        return this._requestParam;
+    }
 };
