@@ -7,7 +7,7 @@ module.exports = class extends Helper {
 
     constructor(http) {
         super(http);
-        this._requestParam = new RequestParam(http);
+        this._requestParam = new RequestParam(this._request);
     }
 
     get routeName() {

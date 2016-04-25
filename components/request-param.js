@@ -4,8 +4,8 @@ const get = require('lodash.get');
 
 module.exports = class {
 
-    constructor(http) {
-        this._request = http.request;
+    constructor(request) {
+        this._request = request;
         this._setParams();
     }
 

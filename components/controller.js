@@ -14,7 +14,7 @@ module.exports = class {
     }
 
     get _param() {
-        return new ReqestParam(this._http);
+        return new ReqestParam(this._request);
     }
 
     get _request() {
