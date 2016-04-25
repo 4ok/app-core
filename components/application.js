@@ -50,8 +50,6 @@ module.exports = class {
     _onRequest(request, response) {
         request.route = this._findRoute(request);
 
-        this._logRequestParams(request);
-
         if (request.route) {
             const http = new Http(request, response);
             const routeParams = request.route.params;
@@ -66,26 +64,6 @@ module.exports = class {
         const router = new Router(this._routes);
 
         return router.findRoute(request.url);
-    }
-
-    _logRequestParams(request) {
-        logger
-            .break()
-            .info('Request uri: %s', request.url);
-
-        if (request.route) {
-            logger
-                .info('Route name:', request.route.name)
-                .info('Route params:', request.route.params);
-        }
-
-        if (request.query !== undefined) {
-            logger.info('Query params:', request.query);
-        }
-
-        if (request.body !== undefined) {
-            logger.info('Post params:', request.body);
-        }
     }
 
     _callController(controllerName, actionName, http) { // TODO
