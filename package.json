@@ -14,7 +14,7 @@
     "lodash.get": "^4.2.1",
     "lodash.has": "^4.3.1",
     "lodash.set": "^4.1.0",
-    "logger": "git+https://github.com/4ok/logger.git#v0.0.0",
+    "logger": "git+https://github.com/4ok/logger.git",
     "serve-static": "^1.10.2",
     "susanin": "^1.0.1",
     "url": "^0.11.0"
