@@ -38,7 +38,7 @@ module.exports = class {
                 logger[type].apply(logger, message);
             }
         } else {
-            throw result;
+            logger.error(result);
         }
     }
 };
