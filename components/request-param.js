@@ -15,7 +15,9 @@ module.exports = class {
         Object
             .keys(this._params)
             .some(key => {
-                return result = this._get(path, key);
+                result = this._get(path, key);
+
+                return result;
             });
 
         return result;
