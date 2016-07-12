@@ -1,5 +1,3 @@
-'use strict';
-
 const qs = require('qs');
 const Helper = require('../components/helper/abstract');
 

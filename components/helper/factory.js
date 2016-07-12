@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = class {
 
     constructor(http, helpersDirs) {
@@ -22,6 +20,7 @@ module.exports = class {
                 }
 
                 if (helperPath) {
+                    // eslint-disable-next-line global-require
                     const Helper = require(helperPath);
 
                     this._helpers[name] = new Helper(this._http);

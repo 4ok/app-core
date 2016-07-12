@@ -1,5 +1,3 @@
-'use strict';
-
 const Request = require('./request');
 const Response = require('./response');
 

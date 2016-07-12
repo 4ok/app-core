@@ -1,5 +1,3 @@
-'use strict';
-
 const logger = require('logger')();
 const ReqestParam = require('./request-param');
 

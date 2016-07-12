@@ -1,5 +1,3 @@
-'use strict';
-
 const has = require('lodash.has');
 const get = require('lodash.get');
 const set = require('lodash.set');

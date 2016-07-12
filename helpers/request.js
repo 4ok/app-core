@@ -1,5 +1,3 @@
-'use strict';
-
 const Helper = require('../components/helper/abstract');
 const RequestParam = require('../components/request-param');
 

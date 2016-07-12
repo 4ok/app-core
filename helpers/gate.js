@@ -1,5 +1,3 @@
-'use strict';
-
 const Gate = require('app-gate');
 const Helper = require('../components/helper/abstract');
 

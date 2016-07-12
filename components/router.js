@@ -1,5 +1,3 @@
-'use strict';
-
 const susanin = require('susanin');
 
 const DEFAULT_PARAMS = {

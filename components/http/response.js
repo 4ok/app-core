@@ -1,5 +1,3 @@
-'use strict';
-
 const DEFAULT_OPTIONS = {
     text404 : 'Error 404',
 };
