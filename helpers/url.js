@@ -75,6 +75,10 @@ module.exports = class extends Helper {
             .getParam('route')
             .getByName(name);
 
+        if (!route) {
+            throw new Error(`Route "${name}" not found`);
+        }
+
         return route.build(params);
     }
 
