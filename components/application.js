@@ -54,7 +54,7 @@ module.exports = class {
 
             this._callController(routeParams.controller, routeParams.action, http);
         } else {
-            this._showPage404(response, 'Route not found');
+            this._showPage404(response, 'Route not found. Url: ' + request.url);
         }
     }
 

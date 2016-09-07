@@ -27,13 +27,7 @@ module.exports = class extends Helper {
         ].join('/');
     }
 
-    getMenu(menu) {
-        menu.items = this._getMenuItems(menu.items);
-
-        return menu;
-    }
-
-    _getMenuItems(items) {
+    getMenuItems(items) {
         const currentUrl = this._getUrlWithoutSuffix(this._request.url.path);
 
         return items.map(item => {
