@@ -4,15 +4,22 @@ const Helper = require('../components/helper/abstract');
 const env = process.env.NODE_ENV || 'development';
 const isDev = (env === 'development');
 
+const BASE_URL = Object.freeze({
+    libs : 'https://cdnjs.cloudflare.com/ajax/libs',
+    fonts : 'https://fonts.googleapis.com/css?family=',
+});
+
 module.exports = class extends Helper {
 
-    getLib(name, version, tech) {
-        return [
-            '//cdnjs.cloudflare.com/ajax/libs/',
-            name,
-            version,
-            name + '.min.' + tech,
-        ].join('/');
+    getLib(name, tech) {
+        return `${BASE_URL.libs}/${name}.min.${tech}`;
+    }
+
+    getFont(name, mods) {
+        name = encodeURIComponent(name);
+        mods = mods.join(',');
+
+        return `${BASE_URL.fonts}${name}:${mods}`;
     }
 
     getBundleFile(tech) {
