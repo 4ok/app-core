@@ -1,10 +1,8 @@
 const Gate = require('app-gate');
-const Helper = require('../components/helper/abstract');
 
-module.exports = class extends Helper {
+module.exports = class {
 
-    constructor(http) {
-        super(http);
+    constructor() {
         this._gate = new Gate();
     }
 
