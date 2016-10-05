@@ -1,21 +1,52 @@
 module.exports = class {
 
-    splitByCols(items, numCols) {
+    splitByCols(items, numCols, isOrderByRows) {
         const result = [];
         const step = Math.ceil(items.length / numCols);
 
         items.forEach((item, index) => {
-            // const numCol = index % numCols;
-            // const numRow = Math.floor(index / numCols);
+            let numCol;
+            let numRow;
 
-            const numRow = index % step;
-            const numCol = Math.floor(index / step);
+            if (isOrderByRows) {
+                numCol = index % numCols;
+                numRow = Math.floor(index / numCols);
+            } else {
+                numCol = Math.floor(index / step);
+                numRow = index % step;
+            }
 
             if (!result[numCol]) {
                 result[numCol] = [];
             }
 
             result[numCol][numRow] = item;
+        });
+
+        return result;
+    }
+
+    splitByRows(items, numRows, isOrderByCols) {
+        const result = [];
+        const step = Math.ceil(items.length / numRows);
+
+        items.forEach((item, index) => {
+            let numRow;
+            let numCol;
+
+            if (isOrderByCols) {
+                numRow = index % step;
+                numCol = Math.floor(index / step);
+            } else {
+                numRow = Math.floor(index / numRows);
+                numCol = index % numRows;
+            }
+
+            if (!result[numRow]) {
+                result[numRow] = [];
+            }
+
+            result[numRow][numCol] = item;
         });
 
         return result;
