@@ -9,12 +9,24 @@ const Http = require('./http');
 
 const ACTION_EPILOG = 'Action';
 
+const SERVER_CONFIG_DEFAULT = Object.freeze({
+    scheme : 'http',
+    host : 'localhost',
+    port : 3000,
+});
+
 module.exports = class {
 
     constructor(routes, controllersDir) {
         this._routes = routes;
         this._controllersDir = controllersDir;
         this._middlewares = [];
+
+        this._serverConfig = {
+            scheme : config.server.scheme || SERVER_CONFIG_DEFAULT.scheme,
+            host : config.server.host || SERVER_CONFIG_DEFAULT.host,
+            port : config.server.port || SERVER_CONFIG_DEFAULT.port,
+        }
     }
 
     start() {
@@ -84,9 +96,11 @@ module.exports = class {
     }
 
     _initListener() {
+        const server = this._serverConfig;
+
         app.listen(
-            config.server.port,
-            config.server.host,
+            server.port,
+            server.host,
             this._listener.bind(this)
         );
     }
@@ -104,11 +118,13 @@ module.exports = class {
     }
 
     _listener() {
+        const server = this._serverConfig;
+
         logger.info(
             'Server listening: %s://%s:%d',
-            config.server.scheme,
-            config.server.host,
-            config.server.port
+            server.scheme,
+            server.host,
+            server.port
         );
     }
 };
