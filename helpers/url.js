@@ -22,18 +22,6 @@ module.exports = class extends Helper {
         return `${BASE_URL.fonts}${name}:${mods}`;
     }
 
-    getBundleFile(tech) {
-        const pathProlog = (isDev) ? '' : '../..';
-        const bundle = 'index';
-
-        return [
-            pathProlog,
-            'bundles',
-            bundle,
-            bundle + '.' + tech,
-        ].join('/');
-    }
-
     getMenuItems(items) {
         const currentUrl = this._getUrlWithoutSuffix(this._request.url.path);
 
