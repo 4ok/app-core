@@ -1,0 +1,56 @@
+### SETTINGS
+### ========
+
+# Project name
+PROJECT_NAME ?= unknown
+
+# Current environment
+export NODE_ENV ?= development
+
+# Node path
+NODE_BIN_PATH := /usr/bin /usr/local/bin
+
+# Node bin
+NODE := $(shell find $(NODE_BIN_PATH) -name node \( -type f -or -type l \))
+
+# Process manager
+PROCESS_MANAGER := pm2
+
+### APPLICATION
+### ===========
+
+# Start application
+.PHONY: start
+start:
+	@echo '===> Running the application'
+	@echo 'User: $(shell whoami)'
+	@echo 'Environment: $(NODE_ENV)'
+	@echo 'Nodejs version: $(shell $(NODE) --version)'
+	$(PROCESS_MANAGER) start index.js -n $(PROJECT_NAME) --no-autorestart --log-date-format="YYYY-MM-DD HH:mm:ss.SSS"
+
+# Stop application
+.PHONY: stop
+stop:
+	@echo '===> Stoping the application'
+	$(PROCESS_MANAGER) delete $(PROJECT_NAME)
+
+# Restart application
+.PHONY: restart
+restart:
+	@echo '===> Restarting the application'
+	$(PROCESS_MANAGER) restart $(PROJECT_NAME)
+
+### DEBUG
+### =====
+
+# Show current process
+.PHONY: process.show
+process.show:
+	@echo '===> Current process'
+	$(PROCESS_MANAGER) show $(PROJECT_NAME)
+
+# Show logs
+.PHONY: logs.show
+logs.show:
+	@echo '===> Logs'
+	$(PROCESS_MANAGER) logs $(PROJECT_NAME)
