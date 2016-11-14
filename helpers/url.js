@@ -38,7 +38,7 @@ module.exports = class extends Helper {
 
             if (itemUrl === currentUrl) {
                 item.state = 'active';
-            } else if (itemUrl !== '/' && currentUrl.indexOf(itemUrl + '/') === 0) {
+            } else if (itemUrl !== '/' && currentUrl.indexOf(itemUrl) === 0) {
                 item.state = 'active-child';
             }
 
@@ -51,12 +51,16 @@ module.exports = class extends Helper {
     }
 
     _getUrlWithoutSuffix(url) {
-        return (url.indexOf('.') > 0)
-            ? url
+
+        if (url.indexOf('.') > 0) {
+            url = url
                 .split('.')
                 .slice(0, -1)
-                .join('/')
-            : url;
+                .concat('')
+                .join('/');
+        }
+
+        return url;
     }
 
     getByRoute(name, params) {
