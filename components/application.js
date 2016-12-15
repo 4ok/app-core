@@ -4,6 +4,7 @@ const config = require('config');
 const errorhandler = require('errorhandler');
 const connectQuery = require('connect-query');
 const serveStatic = require('serve-static');
+const connectSlashes = require("connect-slashes");
 const Router = require('./router');
 const Http = require('./http');
 
@@ -53,6 +54,7 @@ module.exports = class {
             connectQuery(),
             serveStatic(config.rootPath + '/public'), // TODO for dev, move to nginx
             serveStatic(config.rootPath + '/bem'), // TODO for dev, move to nginx
+            connectSlashes(),
             this._onRequest.bind(this),
         ];
     }
