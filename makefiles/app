@@ -1,30 +1,31 @@
-### SETTINGS
-### ========
+### Variables ###
 
 # Project name
-PROJECT_NAME ?= unknown
+PROJECT_NAME ?= $(shell basename $(PWD))
 
 # Current environment
 export NODE_ENV ?= development
 
+# Application config dir
+export NODE_CONFIG_DIR ?= $(CONFIGS_PATH)/app
+
 # Node path
-NODE_BIN_PATH := /usr/bin /usr/local/bin
+NODE_BIN_PATH ?= /usr/bin /usr/local/bin
 
 # Node bin
-NODE := $(shell find $(NODE_BIN_PATH) -name node \( -type f -or -type l \))
+NODE ?= $(shell find $(NODE_BIN_PATH) -name node \( -type f -or -type l \))
 
 # Process manager
-PROCESS_MANAGER := pm2
+PROCESS_MANAGER ?= pm2
 
-### APPLICATION
-### ===========
+### Application ###
 
 # Start application
 .PHONY: start
 start:
 	@echo '===> Running the application'
 	@echo 'User: $(shell whoami)'
-	@echo 'Environment: $(NODE_ENV)'
+	@echo 'Environment: $(PROJECT_NAME)'
 	@echo 'Nodejs version: $(shell $(NODE) --version)'
 
 	if ($(PROCESS_MANAGER) list | grep $(PROJECT_NAME)); then \
@@ -50,8 +51,7 @@ restart:
 
 	$(PROCESS_MANAGER) restart $(PROJECT_NAME)
 
-### DEBUG
-### =====
+### Debug ###
 
 # Show current process
 .PHONY: process.show
