@@ -15,7 +15,7 @@
 ########################################################
 
 # The project name
-PROJECT_NAME ?= $(shell basename $(PWD))
+PROJECT_NAME ?= $(shell basename $(CURDIR))
 
 ifndef NODE
     # Node binary directory
@@ -36,7 +36,7 @@ CONFIGS_DIR ?= configs
 ########################################################
 
 # The node config directory
-export NODE_CONFIG_DIR ?= $(PWD)/$(CONFIGS_DIR)/node
+export NODE_CONFIG_DIR ?= $(CURDIR)/$(CONFIGS_DIR)/node
 
 # The current environment
 export NODE_ENV ?= development
@@ -91,12 +91,12 @@ restart:
 	$(PROCESS_MANAGER) restart $(PROJECT_NAME)
 
 # Start or restart the application
-.PHONY: start
+.PHONY: startOrRestart
 startOrRestart:
 	@if ($(PROCESS_MANAGER) id $(PROJECT_NAME) | grep -E '[0-9]+'); then \
-        $(MAKE) restart; \
+        make restart; \
 	else \
-        $(MAKE) start; \
+        make start; \
 	fi
 
 # Stop the application
