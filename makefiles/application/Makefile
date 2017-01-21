@@ -15,7 +15,7 @@
 ########################################################
 
 # The project name
-PROJECT_NAME ?= $(shell basename $(CURDIR))
+PROJECT_NAME ?= $(shell jq -r '.name' package.json)
 
 ifndef NODE
     # Node binary directory
