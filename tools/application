@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+
+########################################################
+###                        Help                      ###
+########################################################
+
+HELP='
+Application process actions
+
+Usage:
+
+    application [action]
+
+ Actions:
+
+    start              Start the application
+    restart            Restart the application
+    startOrRestart     Start or restart the application
+    stop               Stop the application
+'
+
+########################################################
+###                     Variables                    ###
+########################################################
+
+# Project name
+PROJECT_NAME=$(jq -r '.name' 'package.json')
+
+# Node directories
+NODE_BIN_DIR=(
+    '/usr/bin'
+    '/usr/local/bin'
+)
+
+# Node
+NODE=$(find "${NODE_BIN_DIR[@]}" -name 'node' \( -type f -o -type l \))
+
+# Process manager
+PROCESS_MANAGER='pm2'
+
+# Configs directory
+CONFIGS_DIR="$PWD/configs"
+
+########################################################
+###                      Export                      ###
+########################################################
+
+# Node config directory
+export NODE_CONFIG_DIR="$CONFIGS_DIR/node"
+
+# Node environment
+if [[ -z $NODE_ENV ]]; then
+    NODE_ENV='development'
+fi
+
+########################################################
+###                      Helpers                     ###
+########################################################
+
+#
+# Print a title of action
+#
+# @1 {string} Title
+#
+print_title() {
+    echo "===> $1"
+}
+
+#
+# Print info until start application
+#
+print_info_before_start() {
+    echo "User:            $(whoami)"
+    echo "Environment:     $NODE_ENV"
+    echo "Nodejs version:  $("$NODE" --version)"
+}
+
+########################################################
+###                     Actions                      ###
+########################################################
+
+#
+# Help
+#
+help() {
+    echo "$HELP"
+}
+
+#
+# Start the application
+#
+start() {
+	print_title 'Running the application'
+	print_info_before_start
+
+	"$PROCESS_MANAGER" start index.js \
+        -n "$PROJECT_NAME" \
+        --no-autorestart \
+        --log-date-format='YYYY-MM-DD HH:mm:ss.SSS'
+}
+
+#
+# Restart the application
+#
+restart() {
+	print_title 'Restarting the application'
+	print_info_before_start
+
+	"$PROCESS_MANAGER" restart "$PROJECT_NAME" --update-env
+}
+
+#
+# Start or restart the application
+#
+start_or_restart() {
+
+	if "$PROCESS_MANAGER" id "$PROJECT_NAME" | grep -E '[0-9]+' > /dev/null; then
+        restart
+	else
+        start
+	fi
+}
+
+#
+# Stop the application
+#
+stop() {
+	print_title 'Stoping the application'
+
+	"$PROCESS_MANAGER" delete "$PROJECT_NAME"
+}
+
+########################################################
+###                    Call action                   ###
+########################################################
+
+case "$1" in
+    start|restart|start_or_restart|stop)
+        "$1"
+    ;;
+    *)
+        help
+    ;;
+esac
