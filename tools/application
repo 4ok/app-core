@@ -24,7 +24,9 @@ Usage:
 ########################################################
 
 # Project name
-PROJECT_NAME=$(jq -r '.name' 'package.json')
+if [[ -z $PROJECT_NAME ]]; then
+    PROJECT_NAME=PROJECT_NAME=$(jq -r '.name' package.json)
+fi
 
 # Node directories
 NODE_BIN_DIR=(
