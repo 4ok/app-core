@@ -114,7 +114,7 @@ restart() {
 #
 # Start or restart the application
 #
-start_or_restart() {
+startOrRestart() {
 
 	if "$PROCESS_MANAGER" id "$PROJECT_NAME" | grep -E '[0-9]+' > /dev/null; then
         restart
@@ -137,7 +137,7 @@ stop() {
 ########################################################
 
 case "$1" in
-    start|restart|start_or_restart|stop)
+    start|restart|startOrRestart|stop)
         "$1"
     ;;
     *)
