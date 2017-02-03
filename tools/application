@@ -5,18 +5,22 @@
 ########################################################
 
 HELP='
-Application process actions
+Application process actions.
 
 Usage:
 
     application [action]
 
- Actions:
+Parameters:
 
-    start              Start the application
-    restart            Restart the application
-    startOrRestart     Start or restart the application
-    stop               Stop the application
+    * action
+
+        Application process action.
+
+        - start              Start the application.
+        - restart            Restart the application.
+        - startOrRestart     Start or restart the application.
+        - stop               Stop the application.
 '
 
 ########################################################
