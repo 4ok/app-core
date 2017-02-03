@@ -92,9 +92,9 @@ help() {
 # Start the application
 #
 start() {
-	print_title 'Running the application'
+    print_title 'Running the application'
 
-	if isAppStarted; then
+    if isAppStarted; then
         echo '[warn] Application already started'
     else
         print_info_before_start
@@ -103,22 +103,22 @@ start() {
             -n "$PROJECT_NAME" \
             --no-autorestart \
             --log-date-format='YYYY-MM-DD HH:mm:ss.SSS'
-	fi
+    fi
 }
 
 #
 # Restart the application
 #
 restart() {
-	print_title 'Restarting the application'
+    print_title 'Restarting the application'
 
-	if isAppStarted; then
+    if isAppStarted; then
         print_info_before_start
 
         "$PROCESS_MANAGER" restart "$PROJECT_NAME" --update-env
     else
         echo "[warn] Application isn't running"
-	fi
+    fi
 }
 
 isAppStarted() {
@@ -130,24 +130,24 @@ isAppStarted() {
 #
 startOrRestart() {
 
-	if isAppStarted; then
+    if isAppStarted; then
         restart
-	else
+    else
         start
-	fi
+    fi
 }
 
 #
 # Stop the application
 #
 stop() {
-	print_title 'Stopping the application'
+    print_title 'Stopping the application'
 
-	if isAppStarted; then
+    if isAppStarted; then
         "$PROCESS_MANAGER" delete "$PROJECT_NAME"
     else
         echo '[warn] Application already stopped'
-	fi
+    fi
 }
 
 ########################################################
