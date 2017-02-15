@@ -43,7 +43,7 @@ module.exports = class extends Helper {
             }
 
             if (item.children) {
-                item.children = this._getMenuItems(item.children);
+                item.children = this.getMenuItems(item.children);
             }
 
             return item;
