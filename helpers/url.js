@@ -26,14 +26,6 @@ module.exports = class extends Helper {
         const currentUrl = this._getUrlWithoutSuffix(this._request.url.path);
 
         return items.map(item => {
-            const route = item.route || {
-                name : item.type,
-                params : {
-                    article_alias_chain : item.path,
-                },
-            };
-
-            item.url = this.getByRoute(route.name, route.params);
             const itemUrl = this._getUrlWithoutSuffix(item.url);
 
             if (itemUrl === currentUrl) {
