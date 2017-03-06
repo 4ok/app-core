@@ -37,6 +37,7 @@ module.exports = class {
             }
         } else {
             logger.error(result);
+            this._response.send404();
         }
     }
 };
