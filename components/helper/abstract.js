@@ -1,11 +1,11 @@
 module.exports = class {
 
-    constructor(http) {
+    constructor(http, data) {
         this._http = http;
-        this._httpRequest = http.request;
+        this._data = data;
     }
 
     get _request() {
-        return this._httpRequest;
+        return this._http.request;
     }
 };

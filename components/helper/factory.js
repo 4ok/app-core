@@ -1,8 +1,9 @@
 module.exports = class {
 
-    constructor(http, helpersDirs) {
-        this._http = http;
+    constructor(helpersDirs, http, data) {
         this._helpersDirs = helpersDirs;
+        this._http = http;
+        this._data = data;
         this._helpers = {};
     }
 
@@ -23,7 +24,7 @@ module.exports = class {
                     // eslint-disable-next-line global-require
                     const Helper = require(helperPath);
 
-                    this._helpers[name] = new Helper(this._http);
+                    this._helpers[name] = new Helper(this._http, this._data);
                     break;
                 }
             }
