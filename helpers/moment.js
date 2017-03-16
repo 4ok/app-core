@@ -2,7 +2,7 @@ const moment = require('moment');
 
 module.exports = class {
 
-    init(date) {
+    get _return() {
         return moment(date);
     }
 };

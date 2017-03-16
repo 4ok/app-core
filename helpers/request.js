@@ -3,8 +3,8 @@ const RequestParam = require('../components/request-param');
 
 module.exports = class extends Helper {
 
-    constructor(http) {
-        super(http);
+    constructor(...args) {
+        super(...args);
         this._requestParam = new RequestParam(this._request);
     }
 

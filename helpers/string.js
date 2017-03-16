@@ -2,7 +2,7 @@ const string = require('string');
 
 module.exports = class {
 
-    init(str) {
+    get _return() {
         return string(str);
     }
 };
