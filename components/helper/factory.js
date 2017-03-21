@@ -24,7 +24,7 @@ module.exports = class {
                 if (helperPath) {
                     // eslint-disable-next-line global-require
                     const Helper = require(helperPath);
-                    const helper = new Helper(this._projectDir, this._http, this._data);;
+                    const helper = new Helper(this._projectDir, this._http, this._data);
 
                     this._helpers[name] = helper._return || helper;
 
