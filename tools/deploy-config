@@ -41,6 +41,9 @@ NODE=$(find "${NODE_BIN_DIR[@]}" -name 'node' \( -type f -o -type l \))
 # Node modules directory
 NODE_MODULES_DIR='node_modules'
 
+# Core tools directory
+CORE_TOOLS_DIR=$(dirname "$0")
+
 # Configs directory
 CONFIGS_DIR="$PWD/configs"
 
@@ -84,8 +87,8 @@ help() {
 nginx() {
     print_title 'Deploy nginx config'
 
-    "$NODE" replace-vars.js \
-        "$NODE_MODULES_DIR"/app-core/configs/nginx/base.conf \
+    "$NODE" "$CORE_TOOLS_DIR"/replace-vars.js \
+        "$CORE_TOOLS_DIR"/app-core/configs/nginx/base.conf \
         "$CONFIGS_DIR"/nginx/vars.js \
         > "$NGINX_DIR"/sites-available/"$PROJECT_NAME"
 
