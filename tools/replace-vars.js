@@ -4,7 +4,6 @@ const fs = require('fs');
 const argv = process.argv;
 const source = argv[2];
 const varsFile = path.resolve(argv[3]);
-const dest = path.resolve(argv[4]);
 
 const vars = require(varsFile);
 const fileEncoding = 'utf8';
