@@ -88,7 +88,7 @@ nginx() {
     print_title 'Deploy nginx config'
 
     "$NODE" "$CORE_TOOLS_DIR"/replace-vars.js \
-        "$CORE_TOOLS_DIR"/app-core/configs/nginx/default.conf \
+        "$NODE_MODULES_DIR"/app-core/configs/nginx/default.conf \
         "$CONFIGS_DIR"/nginx/default-vars.js \
         > "$NGINX_DIR"/sites-available/"$PROJECT_NAME"
 
