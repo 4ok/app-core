@@ -88,8 +88,8 @@ nginx() {
     print_title 'Deploy nginx config'
 
     "$NODE" "$CORE_TOOLS_DIR"/replace-vars.js \
-        "$CORE_TOOLS_DIR"/app-core/configs/nginx/base.conf \
-        "$CONFIGS_DIR"/nginx/vars.js \
+        "$CORE_TOOLS_DIR"/app-core/configs/nginx/default.conf \
+        "$CONFIGS_DIR"/nginx/default-vars.js \
         > "$NGINX_DIR"/sites-available/"$PROJECT_NAME"
 
     ln -sfn \
