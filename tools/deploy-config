@@ -85,7 +85,7 @@ help() {
 # Start the application
 #
 nginx() {
-    print_title 'Deploy nginx config'
+    print_title 'Deploying nginx config'
 
     "$NODE" "$CORE_TOOLS_DIR"/replace-vars.js \
         "$NODE_MODULES_DIR"/app-core/configs/nginx/default.conf \
