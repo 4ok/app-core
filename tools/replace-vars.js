@@ -18,4 +18,4 @@ Object
         content = content.replace(regExp, vars[key]);
     });
 
-fs.writeFileSync(dest, content, fileEncoding);
+console.log(content);
