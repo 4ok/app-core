@@ -10,11 +10,11 @@ const Http = require('./http');
 
 const ACTION_EPILOG = 'Action';
 
-const SERVER_CONFIG_DEFAULT = Object.freeze({
+const SERVER_CONFIG_DEFAULT = {
     scheme : 'http',
     host : 'localhost',
     port : 3000,
-});
+};
 
 module.exports = class {
 
@@ -23,7 +23,7 @@ module.exports = class {
         this._controllersDir = controllersDir;
         this._middlewares = [];
 
-        this._serverConfig = {
+        this._server = {
             scheme : config.server.scheme || SERVER_CONFIG_DEFAULT.scheme,
             host : config.server.host || SERVER_CONFIG_DEFAULT.host,
             port : config.server.port || SERVER_CONFIG_DEFAULT.port,
@@ -98,7 +98,7 @@ module.exports = class {
     }
 
     _initListener() {
-        const server = this._serverConfig;
+        const server = this._server;
 
         app.listen(
             server.port,
@@ -120,7 +120,7 @@ module.exports = class {
     }
 
     _listener() {
-        const server = this._serverConfig;
+        const server = this._server;
 
         logger.info(
             'Server listening: %s://%s:%d',

@@ -1,34 +1,29 @@
 const path = require('path');
 
+const projectDir = path.resolve('./');
+const projectName = path.basename(projectDir);
+
 module.exports = {
 
-    // Root project path
-    rootPath : path.resolve('./'),
+    // Project directory
+    rootPath : projectDir, // todo: rootPath rename to projectDir
 
-    // Environment
-    env : 'development',
+    // Project name
+    projectName : projectName,
 
     // Server
     server : {
         scheme : 'http',
-        host : '127.0.0.1',
+        host : 'localhost',
         port : 3000,
     },
 
     // Databases
     db : {
-        mongo : { // TODO to types
-            host : '127.0.0.1',
+        mongo : {
+            db : projectName,
+            host : 'localhost',
             port : '27017',
-        },
-    },
-
-    // Session
-    session : { // TODO options
-        options : {
-            secret : '82MXFYNYHMEpSv8W',
-            resave : true,
-            saveUninitialized : true,
         },
     },
 };
