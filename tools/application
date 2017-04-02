@@ -29,7 +29,13 @@ Parameters:
 
 # Project name
 if [[ -z $PROJECT_NAME ]]; then
-    PROJECT_NAME=$(jq -r '.name' package.json)
+    echo 'Error: Set the "PROJECT_NAME" variable'
+    exit 1
+fi
+
+# Node environment
+if [[ -z $NODE_ENV ]]; then
+    NODE_ENV='development'
 fi
 
 # Node directories
@@ -44,20 +50,12 @@ NODE=$(find "${NODE_BIN_DIR[@]}" -name 'node' \( -type f -o -type l \))
 # Process manager
 PROCESS_MANAGER='pm2'
 
-# Configs directory
-CONFIGS_DIR="$PWD/configs"
-
 ########################################################
 ###                      Export                      ###
 ########################################################
 
 # Node config directory
-export NODE_CONFIG_DIR="$CONFIGS_DIR/node"
-
-# Node environment
-if [[ -z $NODE_ENV ]]; then
-    NODE_ENV='development'
-fi
+export NODE_CONFIG_DIR="$PWD/configs/node"
 
 ########################################################
 ###                      Helpers                     ###
@@ -68,14 +66,14 @@ fi
 #
 # @1 {string} Title
 #
-print_title() {
+printTitle() {
     echo "===> $1"
 }
 
 #
 # Print info until start application
 #
-print_info_before_start() {
+printInfoBeforeStart() {
     echo "User:            $(whoami)"
     echo "Environment:     $NODE_ENV"
     echo "Nodejs version:  $("$NODE" --version)"
@@ -96,12 +94,12 @@ help() {
 # Start the application
 #
 start() {
-    print_title 'Running the application'
+    printTitle 'Running the application'
 
     if isAppStarted; then
         echo '[warn] Application already started'
     else
-        print_info_before_start
+        printInfoBeforeStart
 
         "$PROCESS_MANAGER" start index.js \
             -n "$PROJECT_NAME" \
@@ -114,10 +112,10 @@ start() {
 # Restart the application
 #
 restart() {
-    print_title 'Restarting the application'
+    printTitle 'Restarting the application'
 
     if isAppStarted; then
-        print_info_before_start
+        printInfoBeforeStart
 
         "$PROCESS_MANAGER" restart "$PROJECT_NAME" --update-env
     else
@@ -145,7 +143,7 @@ startOrRestart() {
 # Stop the application
 #
 stop() {
-    print_title 'Stopping the application'
+    printTitle 'Stopping the application'
 
     if isAppStarted; then
         "$PROCESS_MANAGER" delete "$PROJECT_NAME"

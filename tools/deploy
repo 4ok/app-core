@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+
+########################################################
+###                        Help                      ###
+########################################################
+
+HELP='
+Deploy.
+
+Usage:
+
+    deploy [action]
+
+Parameters:
+
+    * action
+
+        Deploy config actions.
+
+        - project  Deploy a project.
+        - nginx    Deploy a nginx config.
+'
+
+########################################################
+###                     Variables                    ###
+########################################################
+
+# Project name
+if [[ -z $PROJECT_NAME ]]; then
+    echo 'Error: Set the "PROJECT_NAME" variable'
+    exit 1
+fi
+
+# Project name
+if [[ -z $SERVER_BUILD_DIR ]]; then
+    echo 'Error: Set the "SERVER_BUILD_DIR" variable'
+    exit 1
+fi
+
+# Build number
+if [[ -z $BUILD_NUMBER ]]; then
+    echo 'Error: Set the "BUILD_NUMBER" variable'
+    exit 1
+fi
+
+# Build generation
+if [[ -z $BUILD_GENERATION ]]; then
+    BUILD_GENERATION='0.0'
+fi
+
+########################################################
+###                      Helpers                     ###
+########################################################
+
+#
+# Print a title of action
+#
+# @1 {string} Title
+#
+printTitle() {
+    echo "===> $1"
+}
+
+########################################################
+###                     Actions                      ###
+########################################################
+
+#
+# Help
+#
+help() {
+    echo "$HELP"
+}
+
+#
+# Start the application
+#
+nginx() {
+    local nginxDir='/etc/nginx'
+
+    printTitle 'Deploy a nginx config'
+
+    ln -sfn \
+        "$nginxDir"/sites-available/"$PROJECT_NAME" \
+        "$nginxDir"/sites-enabled/"$PROJECT_NAME"
+}
+
+project() {
+    local wwwDir='/var/www'
+    local buildName='release'
+    local buildArchive="$buildName.tgz"
+    local buildNewName="$BUILD_GENERATION.$BUILD_NUMBER"
+    local projectsDir="$wwwDir/projects"
+
+    if [[ -n $projectsDir ]]; then
+        mkdir -p "$projectsDir"
+    fi
+
+    printTitle 'Extracting a build archive'
+
+    cd "$SERVER_BUILD_DIR"
+    tar -xzf "$buildArchive" --transform s/"$buildName/$buildNewName" >/dev/null 2>&1 # todo: /dev/null
+    rm -f "$buildArchive"
+
+    printTitle 'Creating a project symlink'
+
+    ln -sfn "$SERVER_BUILD_DIR/$buildName" "$projectsDir/$PROJECT_NAME"
+}
+
+all() {
+    project
+}
+
+########################################################
+###                    Call action                   ###
+########################################################
+
+case "$1" in
+    all|project|nginx)
+        "$1"
+    ;;
+    *)
+        help
+    ;;
+esac
