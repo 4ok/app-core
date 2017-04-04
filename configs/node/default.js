@@ -1,7 +1,7 @@
 const path = require('path');
 
 const projectDir = path.resolve('./');
-const projectName = path.basename(projectDir);
+const projectName = process.env.PROJECT_NAME;
 
 module.exports = {
 
