@@ -165,7 +165,7 @@ stop() {
 ########################################################
 
 case "$1" in
-    start|restart|startOrRestart|stop)
+    start|restart|stopAndStart|startOrRestart|stop)
         "$1"
     ;;
     *)
