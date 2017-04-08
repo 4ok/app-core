@@ -123,6 +123,14 @@ restart() {
     fi
 }
 
+#
+# Stop and start the application
+#
+stopAndStart() {
+    stop
+    start
+}
+
 isAppStarted() {
     "$PROCESS_MANAGER" id "$PROJECT_NAME" | grep -E '[0-9]+' > /dev/null
 }
