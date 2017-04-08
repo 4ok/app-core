@@ -11,6 +11,10 @@ const BASE_URL = Object.freeze({
 
 module.exports = class extends Helper {
 
+    get current() {
+        return this._request.url;
+    }
+
     getLib(name, tech) {
         return `${BASE_URL.libs}/${name}.min.${tech}`;
     }
@@ -42,19 +46,6 @@ module.exports = class extends Helper {
         });
     }
 
-    _getUrlWithoutSuffix(url) {
-
-        if (url.indexOf('.') > 0) {
-            url = url
-                .split('.')
-                .slice(0, -1)
-                .concat('')
-                .join('/');
-        }
-
-        return url;
-    }
-
     getByRoute(name, params) {
         const route = this._request
             .getParam('route')
@@ -71,5 +62,18 @@ module.exports = class extends Helper {
         return (params)
             ? '?' + qs.stringify(params)
             : '';
+    }
+
+    _getUrlWithoutSuffix(url) {
+
+        if (url.indexOf('.') > 0) {
+            url = url
+                .split('.')
+                .slice(0, -1)
+                .concat('')
+                .join('/');
+        }
+
+        return url;
     }
 };

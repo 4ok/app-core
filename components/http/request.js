@@ -1,3 +1,4 @@
+const config = require('config');
 const has = require('lodash.has');
 const get = require('lodash.get');
 const set = require('lodash.set');
@@ -10,7 +11,15 @@ module.exports = class {
     }
 
     get url() {
-        this._url = this._url || url.parse(this._request.url);
+
+        if (!this._url) {
+            const fullUrl = config.get('server.scheme')
+                + '://'
+                + config.get('domain')
+                + this._request.url;
+
+            this._url = url.parse(fullUrl);
+        }
 
         return this._url;
     }
