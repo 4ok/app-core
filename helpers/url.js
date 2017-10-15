@@ -1,9 +1,6 @@
 const qs = require('qs');
 const Helper = require('../components/helper/abstract');
 
-const env = process.env.NODE_ENV || 'development';
-const isDev = (env === 'development');
-
 const BASE_URL = Object.freeze({
     libs : 'https://cdnjs.cloudflare.com/ajax/libs',
     fonts : 'https://fonts.googleapis.com/css?family=',

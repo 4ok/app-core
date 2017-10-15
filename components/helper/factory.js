@@ -22,11 +22,11 @@ module.exports = class {
                 }
 
                 if (helperPath) {
-                    // eslint-disable-next-line global-require
+                    // eslint-disable-next-line import/no-dynamic-require
                     const Helper = require(helperPath);
                     const helper = new Helper(this._projectDir, this._http, this._data);
 
-                    this._helpers[name] = helper._return || helper;
+                    this._helpers[name] = helper.return || helper;
 
                     break;
                 }

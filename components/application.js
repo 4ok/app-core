@@ -81,7 +81,7 @@ module.exports = class {
     _callController(controllerName, actionName, http) { // TODO
         const controllerPath = this._controllersDir + '/' + controllerName;
 
-        // eslint-disable-next-line global-require
+        // eslint-disable-next-line import/no-dynamic-require
         const Controller = require(controllerPath);
         const controller = new Controller(http);
         const actionFullName = actionName + ACTION_EPILOG;

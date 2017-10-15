@@ -18,13 +18,14 @@ module.exports = class extends Helper {
             const filePath = dataDir + '/' + fileName;
             const key = fileName.replace(/\.[^.]+$/, '');
 
+            // eslint-disable-next-line import/no-dynamic-require
             result[key] = require(filePath);
 
             return result;
         }, {});
     }
 
-    get _return() {
+    get return() {
         return this._returnData;
     }
 };

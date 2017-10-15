@@ -7,6 +7,7 @@ const Module = class {
     get(moduleName) {
 
         if (!this._libs[moduleName]) {
+            // eslint-disable-next-line import/no-dynamic-require
             this._libs[moduleName] = require(moduleName);
         }
 
@@ -20,7 +21,7 @@ module.exports = class {
         this._module = new Module();
     }
 
-    get _return() {
+    get return() {
         return this._module;
     }
 };

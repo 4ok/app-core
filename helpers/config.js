@@ -2,7 +2,7 @@ const config = require('config');
 
 module.exports = class {
 
-    get _return() {
+    get return() {
         return config;
     }
 };
