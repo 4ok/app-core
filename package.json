@@ -23,7 +23,7 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "eslint": "^4.3.0",
+    "eslint": "^4.9.0",
     "eslint-config-4ok": "github:4ok/eslint-config-4ok"
   },
   "scripts": {
