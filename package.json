@@ -6,7 +6,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "app-gate": "git+https://github.com/4ok/app-gate.git",
+    "app-gate": "github:4ok/app-gate.git",
     "config": "^1.21.0",
     "connect": "^3.4.1",
     "connect-query": "^1.0.0",
@@ -15,7 +15,7 @@
     "lodash.get": "^4.3.0",
     "lodash.has": "^4.4.0",
     "lodash.set": "^4.2.0",
-    "logger": "git+https://github.com/4ok/logger.git",
+    "logger": "github:4ok/logger.git",
     "qs": "^6.5.1",
     "serve-static": "^1.11.1",
     "string": "^3.3.3",
