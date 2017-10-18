@@ -12,7 +12,7 @@ module.exports = class {
 
         if (!this._helpers[name]) {
 
-            for (const dir of this._helpersDirs) {
+            this._helpersDirs.some((dir) => {
                 let helperPath;
 
                 try {
@@ -22,15 +22,17 @@ module.exports = class {
                 }
 
                 if (helperPath) {
-                    // eslint-disable-next-line import/no-dynamic-require
+                    // eslint-disable-next-line global-require, import/no-dynamic-require
                     const Helper = require(helperPath);
                     const helper = new Helper(this._projectDir, this._http, this._data);
 
                     this._helpers[name] = helper.return || helper;
 
-                    break;
+                    return true;
                 }
-            }
+
+                return false;
+            });
         }
 
         if (!this._helpers[name]) {

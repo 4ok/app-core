@@ -1,5 +1,5 @@
 const DEFAULT_OPTIONS = {
-    text404 : 'Error 404',
+    text404: 'Error 404',
 };
 
 class Response {
@@ -18,16 +18,18 @@ class Response {
             headers[key] = value;
         }
 
-        for (const name of Object.keys(headers)) {
-            this._response.setHeader(name, headers[name]);
-        }
+        Object
+            .keys(headers)
+            .forEach((header) => {
+                this._response.setHeader(header, headers[header]);
+            });
 
         return this;
     }
 
     redirect(url, code) {
         this._response.writeHead(code || 301, {
-            Location : url,
+            Location: url,
         });
 
         return this.send();

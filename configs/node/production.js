@@ -3,8 +3,8 @@ const defaultConfig = require('./default');
 module.exports = {
 
     // Environment
-    env : 'production',
+    env: 'production',
 
     // domain
-    domain : defaultConfig.projectName + '.ru',
+    domain: defaultConfig.projectName + '.ru',
 };

@@ -1,12 +1,12 @@
 const defaultConfig = require('./default');
 
-const server = defaultConfig.server;
+const { server } = defaultConfig;
 
 module.exports = {
 
     // Environment
-    env : 'development',
+    env: 'development',
 
     // Domain
-    domain : server.host + ':' + server.port,
+    domain: server.host + ':' + server.port,
 };

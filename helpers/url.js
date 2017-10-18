@@ -2,8 +2,8 @@ const qs = require('qs');
 const Helper = require('../components/helper/abstract');
 
 const BASE_URL = Object.freeze({
-    libs : 'https://cdnjs.cloudflare.com/ajax/libs',
-    fonts : 'https://fonts.googleapis.com/css?family=',
+    libs: 'https://cdnjs.cloudflare.com/ajax/libs',
+    fonts: 'https://fonts.googleapis.com/css?family=',
 });
 
 module.exports = class extends Helper {
@@ -12,10 +12,12 @@ module.exports = class extends Helper {
         return this._request.url;
     }
 
+    // eslint-disable-next-line class-methods-use-this
     getLib(name, tech) {
         return `${BASE_URL.libs}/${name}.min.${tech}`;
     }
 
+    // eslint-disable-next-line class-methods-use-this
     getFont(name, mods) {
         name = encodeURIComponent(name);
         mods = mods.join(',');
@@ -26,7 +28,7 @@ module.exports = class extends Helper {
     getMenuItems(items) {
         const currentUrl = this._getUrlWithoutSuffix(this._request.url.path);
 
-        return items.map(item => {
+        return items.map((item) => {
             const itemUrl = this._getUrlWithoutSuffix(item.url);
 
             if (itemUrl === currentUrl) {
@@ -55,12 +57,14 @@ module.exports = class extends Helper {
         return route.build(params);
     }
 
+    // eslint-disable-next-line class-methods-use-this
     getQueryString(params) {
         return (params)
             ? '?' + qs.stringify(params)
             : '';
     }
 
+    // eslint-disable-next-line class-methods-use-this
     _getUrlWithoutSuffix(url) {
 
         if (url.indexOf('.') > 0) {

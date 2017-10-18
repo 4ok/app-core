@@ -33,7 +33,7 @@ module.exports = class {
             }
 
             if (result.hasMessage()) {
-                logger[type].apply(logger, message);
+                logger[type](...message);
             }
         } else {
             logger.error(result);

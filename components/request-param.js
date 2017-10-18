@@ -12,11 +12,7 @@ module.exports = class {
 
         Object
             .keys(this._params)
-            .some(key => {
-                result = this._get(path, key);
-
-                return result;
-            });
+            .some(key => this._get(path, key));
 
         return result;
     }
@@ -46,9 +42,9 @@ module.exports = class {
         const getParam = this._request.getParam.bind(this._request);
 
         this._params = {
-            route : getParam('route.params'),
-            query : getParam('query'),
-            post : getParam('body'),
+            route: getParam('route.params'),
+            query: getParam('query'),
+            post: getParam('body'),
         };
     }
 };

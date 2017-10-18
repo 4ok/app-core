@@ -4,16 +4,16 @@ const config = require('config');
 const errorhandler = require('errorhandler');
 const connectQuery = require('connect-query');
 const serveStatic = require('serve-static');
-const connectSlashes = require("connect-slashes");
+const connectSlashes = require('connect-slashes');
 const Router = require('./router');
 const Http = require('./http');
 
 const ACTION_EPILOG = 'Action';
 
 const SERVER_CONFIG_DEFAULT = {
-    scheme : 'http',
-    host : 'localhost',
-    port : 3000,
+    scheme: 'http',
+    host: 'localhost',
+    port: 3000,
 };
 
 module.exports = class {
@@ -24,15 +24,16 @@ module.exports = class {
         this._middlewares = [];
 
         this._server = {
-            scheme : config.server.scheme || SERVER_CONFIG_DEFAULT.scheme,
-            host : config.server.host || SERVER_CONFIG_DEFAULT.host,
-            port : config.server.port || SERVER_CONFIG_DEFAULT.port,
-        }
+            scheme: config.server.scheme || SERVER_CONFIG_DEFAULT.scheme,
+            host: config.server.host || SERVER_CONFIG_DEFAULT.host,
+            port: config.server.port || SERVER_CONFIG_DEFAULT.port,
+        };
     }
 
     start() {
         this._initMiddlewares();
         this._initListener();
+        // eslint-disable-next-line no-underscore-dangle
         this._logUncaughtException();
     }
 
@@ -43,9 +44,7 @@ module.exports = class {
     _initMiddlewares() {
         const middlewares = this._middlewares.concat(this._getDefaultMiddlewares());
 
-        for (const middleware of middlewares) {
-            app.use(middleware);
-        }
+        middlewares.forEach(middleware => app.use(middleware));
     }
 
     _getDefaultMiddlewares() {
@@ -68,7 +67,8 @@ module.exports = class {
 
             this._callController(routeParams.controller, routeParams.action, http);
         } else {
-            this._showPage404(response, 'Route not found. Url: ' + request.url);
+            // eslint-disable-next-line no-underscore-dangle
+            this.constructor._showPage404(response, 'Route not found. Url: ' + request.url);
         }
     }
 
@@ -81,7 +81,7 @@ module.exports = class {
     _callController(controllerName, actionName, http) { // TODO
         const controllerPath = this._controllersDir + '/' + controllerName;
 
-        // eslint-disable-next-line import/no-dynamic-require
+        // eslint-disable-next-line global-require, import/no-dynamic-require
         const Controller = require(controllerPath);
         const controller = new Controller(http);
         const actionFullName = actionName + ACTION_EPILOG;
@@ -90,7 +90,7 @@ module.exports = class {
         action.call(controller);
     }
 
-    _showPage404(response, text) {
+    static _showPage404(response, text) {
         logger.info(text);
 
         response.statusCode = 404;
@@ -100,17 +100,13 @@ module.exports = class {
     _initListener() {
         const server = this._server;
 
-        app.listen(
-            server.port,
-            server.host,
-            this._listener.bind(this)
-        );
+        app.listen(server.port, server.host, this._listener.bind(this));
     }
 
-    _logUncaughtException() {
+    static _logUncaughtException() {
         process.stdin
             .resume()
-            .on('uncaughtException', err => {
+            .on('uncaughtException', (err) => {
                 const message = (err.getMessage)
                     ? err.getMessage()
                     : (err.stack || err);
@@ -122,11 +118,6 @@ module.exports = class {
     _listener() {
         const server = this._server;
 
-        logger.info(
-            'Server listening: %s://%s:%d',
-            server.scheme,
-            server.host,
-            server.port
-        );
+        logger.info('Server listening: %s://%s:%d', server.scheme, server.host, server.port);
     }
 };

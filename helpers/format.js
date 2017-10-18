@@ -1,5 +1,6 @@
 module.exports = class {
 
+    // eslint-disable-next-line class-methods-use-this
     splitByCols(items, numCols, isOrderByRows) {
         const result = [];
         const step = Math.ceil(items.length / numCols);
@@ -26,6 +27,7 @@ module.exports = class {
         return result;
     }
 
+    // eslint-disable-next-line class-methods-use-this
     splitByRows(items, numRows, isOrderByCols) {
         const result = [];
         const step = Math.ceil(items.length / numRows);

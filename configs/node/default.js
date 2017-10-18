@@ -5,25 +5,25 @@ const projectName = process.env.PROJECT_NAME;
 
 module.exports = {
 
-    // Project directory
-    rootPath : projectDir, // todo: rootPath rename to projectDir
-
     // Project name
-    projectName : projectName,
+    projectName,
+
+    // Project directory
+    rootPath: projectDir, // todo: rootPath rename to projectDir
 
     // Server
-    server : {
-        scheme : 'http',
-        host : 'localhost',
-        port : 3000,
+    server: {
+        scheme: 'http',
+        host: 'localhost',
+        port: 3000,
     },
 
     // Databases
-    db : {
-        mongo : {
-            db : projectName,
-            host : 'localhost',
-            port : '27017',
+    db: {
+        mongo: {
+            db: projectName,
+            host: 'localhost',
+            port: '27017',
         },
     },
 };

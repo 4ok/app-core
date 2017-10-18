@@ -7,13 +7,13 @@ const Module = class {
     get(moduleName) {
 
         if (!this._libs[moduleName]) {
-            // eslint-disable-next-line import/no-dynamic-require
+            // eslint-disable-next-line global-require, import/no-dynamic-require
             this._libs[moduleName] = require(moduleName);
         }
 
         return this._libs[moduleName];
     }
-}
+};
 
 module.exports = class {
 
