@@ -34,7 +34,7 @@ module.exports = class {
         this._initMiddlewares();
         this._initListener();
         // eslint-disable-next-line no-underscore-dangle
-        this._logUncaughtException();
+        this.constructor._logUncaughtException();
     }
 
     addMiddleware(middleware) {
