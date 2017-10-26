@@ -12,7 +12,7 @@ module.exports = class {
 
         Object
             .keys(this._params)
-            .some(key => {
+            .some((key) => {
                 result = this._get(path, key);
 
                 return result;
