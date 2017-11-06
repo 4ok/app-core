@@ -1,7 +1,7 @@
 const path = require('path');
 
-const projectDir = path.resolve('./');
 const projectName = process.env.PROJECT_NAME;
+const projectDir = path.resolve('./');
 
 module.exports = {
 
@@ -9,7 +9,7 @@ module.exports = {
     projectName,
 
     // Project directory
-    rootPath: projectDir, // todo: rootPath rename to projectDir
+    projectDir,
 
     // Server
     server: {
