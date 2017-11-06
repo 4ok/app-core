@@ -1,6 +1,5 @@
 const app = require('connect')();
 const logger = require('logger')();
-const config = require('config');
 const errorhandler = require('errorhandler');
 const connectQuery = require('connect-query');
 const serveStatic = require('serve-static');
@@ -18,16 +17,23 @@ const SERVER_CONFIG_DEFAULT = {
 
 module.exports = class {
 
-    constructor(routes, controllersDir) {
+    constructor({ config, routes, controllersDir }) {
         this._routes = routes;
         this._controllersDir = controllersDir;
         this._middlewares = [];
 
+        const {
+            scheme,
+            host,
+            port,
+        } = config.server;
+
         this._server = {
-            scheme: config.server.scheme || SERVER_CONFIG_DEFAULT.scheme,
-            host: config.server.host || SERVER_CONFIG_DEFAULT.host,
-            port: config.server.port || SERVER_CONFIG_DEFAULT.port,
+            scheme: scheme || SERVER_CONFIG_DEFAULT.scheme,
+            host: host || SERVER_CONFIG_DEFAULT.host,
+            port: port || SERVER_CONFIG_DEFAULT.port,
         };
+        this._config = config;
     }
 
     start() {
@@ -51,8 +57,8 @@ module.exports = class {
         return [
             errorhandler(),
             connectQuery(),
-            serveStatic(config.rootPath + '/public'), // TODO for dev, move to nginx
-            serveStatic(config.rootPath + '/bem'), // TODO for dev, move to nginx
+            serveStatic(this._config.projectDir + '/public'), // TODO for dev, move to nginx
+            serveStatic(this._config.projectDir + '/bem'), // TODO for dev, move to nginx
             connectSlashes(),
             this._onRequest.bind(this),
         ];

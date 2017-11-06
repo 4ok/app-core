@@ -8,8 +8,12 @@ const BASE_URL = Object.freeze({
 
 module.exports = class extends Helper {
 
-    get current() {
-        return this._request.url;
+    get full() {
+        return this._request.fullUrl;
+    }
+
+    get parsed() {
+        return this._request.parsedUrl;
     }
 
     // eslint-disable-next-line class-methods-use-this

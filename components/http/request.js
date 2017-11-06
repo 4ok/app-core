@@ -1,4 +1,3 @@
-const config = require('config');
 const has = require('lodash.has');
 const get = require('lodash.get');
 const set = require('lodash.set');
@@ -8,20 +7,25 @@ module.exports = class {
 
     constructor(request) {
         this._request = request;
+
+        this._fullUrl = [
+            'http://', // todo: for https
+            request.headers.host,
+            request.originalUrl,
+        ].join('');
     }
 
-    get url() {
+    get fullUrl() {
+        return this._fullUrl;
+    }
 
-        if (!this._url) {
-            const fullUrl = config.get('server.scheme')
-                + '://'
-                + config.get('domain')
-                + this._request.url;
+    get parsedUrl() {
 
-            this._url = url.parse(fullUrl);
+        if (!this._parsedUrl) {
+            this._parsedUrl = url.parse(this._fullUrl);
         }
 
-        return this._url;
+        return this._parsedUrl;
     }
 
     hasParam(path) {
