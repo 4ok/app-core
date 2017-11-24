@@ -29,6 +29,24 @@ module.exports = class extends Helper {
         return `${BASE_URL.fonts}${name}:${mods}`;
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    getPageResources({ commonResources = [], pagesResources = {}, page }) {
+        const pageResources = [].concat(commonResources, pagesResources[page] || []);
+
+        return pageResources.reduce((result, resource) => {
+            Object
+                .keys(resource)
+                .forEach((type) => {
+                    result[type] = result[type].concat(resource[type]);
+                });
+
+            return result;
+        }, {
+            css: [],
+            js: [],
+        });
+    }
+
     getMenuItems(items) {
         const currentUrl = this._getUrlWithoutSuffix(this._request.url.path);
 
