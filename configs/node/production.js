@@ -1,10 +1,12 @@
 const defaultConfig = require('./default');
 
+const DEFAULT_TOP_DOMAIN = 'ru';
+
 module.exports = {
 
     // Environment
     env: 'production',
 
-    // domain
-    domain: defaultConfig.projectName + '.ru',
+    // Domain
+    domain: defaultConfig.projectName + '.' + DEFAULT_TOP_DOMAIN,
 };
