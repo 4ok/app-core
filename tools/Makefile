@@ -33,7 +33,7 @@ restart:
 
 # Start or restart an application
 .PHONY: startOrRestart
-start.or.restart:
+startOrRestart:
 	$(SCRIPT_APP) startOrRestart
 
 # Stop an application
