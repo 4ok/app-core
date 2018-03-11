@@ -1,10 +1,7 @@
 #
 #    Application:
 #
-#    		start              Start an application
-#    		restart            Restart an application
-#    		startOrRestart     Start or restart an application
-#    		stop               Stop an application
+#    		start		Start an application
 #
 
 ########################################################
@@ -25,18 +22,3 @@ SCRIPT_APP := $(SCRIPTS_DIR)/application
 .PHONY: start
 start:
 	$(SCRIPT_APP) start
-
-# Restart an application
-.PHONY: restart
-restart:
-	$(SCRIPT_APP) restart
-
-# Start or restart an application
-.PHONY: startOrRestart
-startOrRestart:
-	$(SCRIPT_APP) startOrRestart
-
-# Stop an application
-.PHONY: stop
-stop:
-	$(SCRIPT_APP) stop
