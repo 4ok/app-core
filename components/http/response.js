@@ -1,54 +1,54 @@
 const DEFAULT_OPTIONS = {
-    text404: 'Error 404',
-};
+	text404: 'Error 404',
+}
 
 class Response {
 
-    constructor(response, options) {
-        this._response = response;
-        this._options = Object.assign({}, DEFAULT_OPTIONS, options || {});
-    }
+	constructor(response, options) {
+		this._response = response
+		this._options = Object.assign({}, DEFAULT_OPTIONS, options || {})
+	}
 
-    setHeader(key, value) {
-        let headers = {};
+	setHeader(key, value) {
+		let headers = {}
 
-        if (typeof key === 'object') {
-            headers = key;
-        } else {
-            headers[key] = value;
-        }
+		if (typeof key === 'object') {
+			headers = key
+		} else {
+			headers[key] = value
+		}
 
-        Object
-            .keys(headers)
-            .forEach((header) => {
-                this._response.setHeader(header, headers[header]);
-            });
+		Object
+			.keys(headers)
+			.forEach((header) => {
+				this._response.setHeader(header, headers[header])
+			})
 
-        return this;
-    }
+		return this
+	}
 
-    redirect(url, code) {
-        this._response.writeHead(code || 301, {
-            Location: url,
-        });
+	redirect(url, code) {
+		this._response.writeHead(code || 301, {
+			Location: url,
+		})
 
-        return this.send();
-    }
+		return this.send()
+	}
 
-    send404(text) {
-        text = text || this._options.text404;
+	send404(text) {
+		text = text || this._options.text404
 
-        this._response.statusCode = 404;
-        this._response.end(text);
+		this._response.statusCode = 404
+		this._response.end(text)
 
-        return this;
-    }
+		return this
+	}
 
-    send(data) {
-        this._response.end(data);
+	send(data) {
+		this._response.end(data)
 
-        return this;
-    }
+		return this
+	}
 }
 
-module.exports = Response;
+module.exports = Response

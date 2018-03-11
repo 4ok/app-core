@@ -1,54 +1,54 @@
-const get = require('lodash.get');
+const get = require('lodash.get')
 
 module.exports = class {
 
-    constructor(request) {
-        this._request = request;
-        this._setParams();
-    }
+	constructor(request) {
+		this._request = request
+		this._setParams()
+	}
 
-    get(path) {
-        let result;
+	get(path) {
+		let result
 
-        Object
-            .keys(this._params)
-            .some((key) => {
-                result = this._get(path, key);
+		Object
+			.keys(this._params)
+			.some((key) => {
+				result = this._get(path, key)
 
-                return result;
-            });
+				return result
+			})
 
-        return result;
-    }
+		return result
+	}
 
-    route(path) {
-        return this._get(path, 'route');
-    }
+	route(path) {
+		return this._get(path, 'route')
+	}
 
-    query(path) {
-        return this._get(path, 'query');
-    }
+	query(path) {
+		return this._get(path, 'query')
+	}
 
-    post(path) {
-        return this._get(path, 'body');
-    }
+	post(path) {
+		return this._get(path, 'body')
+	}
 
-    _get(path, prolog) {
+	_get(path, prolog) {
 
-        if (prolog) {
-            path = prolog + '.' + path;
-        }
+		if (prolog) {
+			path = `${ prolog }.${ path }`
+		}
 
-        return get(this._params, path);
-    }
+		return get(this._params, path)
+	}
 
-    _setParams() {
-        const getParam = this._request.getParam.bind(this._request);
+	_setParams() {
+		const getParam = this._request.getParam.bind(this._request)
 
-        this._params = {
-            route: getParam('route.params'),
-            query: getParam('query'),
-            post: getParam('body'),
-        };
-    }
-};
+		this._params = {
+			route: getParam('route.params'),
+			query: getParam('query'),
+			post: getParam('body'),
+		}
+	}
+}

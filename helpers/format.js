@@ -1,56 +1,56 @@
 module.exports = class {
 
-    // eslint-disable-next-line class-methods-use-this
-    splitByCols(items, numCols, isOrderByRows) {
-        const result = [];
-        const step = Math.ceil(items.length / numCols);
+	// eslint-disable-next-line class-methods-use-this
+	splitByCols(items, numCols, isOrderByRows) {
+		const result = []
+		const step = Math.ceil(items.length / numCols)
 
-        items.forEach((item, index) => {
-            let numCol;
-            let numRow;
+		items.forEach((item, index) => {
+			let numCol
+			let numRow
 
-            if (isOrderByRows) {
-                numCol = index % numCols;
-                numRow = Math.floor(index / numCols);
-            } else {
-                numCol = Math.floor(index / step);
-                numRow = index % step;
-            }
+			if (isOrderByRows) {
+				numCol = index % numCols
+				numRow = Math.floor(index / numCols)
+			} else {
+				numCol = Math.floor(index / step)
+				numRow = index % step
+			}
 
-            if (!result[numCol]) {
-                result[numCol] = [];
-            }
+			if (!result[numCol]) {
+				result[numCol] = []
+			}
 
-            result[numCol][numRow] = item;
-        });
+			result[numCol][numRow] = item
+		})
 
-        return result;
-    }
+		return result
+	}
 
-    // eslint-disable-next-line class-methods-use-this
-    splitByRows(items, numRows, isOrderByCols) {
-        const result = [];
-        const step = Math.ceil(items.length / numRows);
+	// eslint-disable-next-line class-methods-use-this
+	splitByRows(items, numRows, isOrderByCols) {
+		const result = []
+		const step = Math.ceil(items.length / numRows)
 
-        items.forEach((item, index) => {
-            let numRow;
-            let numCol;
+		items.forEach((item, index) => {
+			let numRow
+			let numCol
 
-            if (isOrderByCols) {
-                numRow = index % step;
-                numCol = Math.floor(index / step);
-            } else {
-                numRow = Math.floor(index / numRows);
-                numCol = index % numRows;
-            }
+			if (isOrderByCols) {
+				numRow = index % step
+				numCol = Math.floor(index / step)
+			} else {
+				numRow = Math.floor(index / numRows)
+				numCol = index % numRows
+			}
 
-            if (!result[numRow]) {
-                result[numRow] = [];
-            }
+			if (!result[numRow]) {
+				result[numRow] = []
+			}
 
-            result[numRow][numCol] = item;
-        });
+			result[numRow][numCol] = item
+		})
 
-        return result;
-    }
-};
+		return result
+	}
+}
