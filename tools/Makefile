@@ -21,4 +21,4 @@ SCRIPT_APP := $(SCRIPTS_DIR)/application
 # Start an application
 .PHONY: start
 start:
-	$(SCRIPT_APP) start
+	$(SCRIPT_APP) startDev

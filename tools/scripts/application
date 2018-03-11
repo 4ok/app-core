@@ -15,14 +15,25 @@ Parameters:
 
     * action
 
-        Application process actions.
+        Application process action.
 
         - start              Start the application.
+        - restart            Restart the application.
+        - startOrRestart     Start or restart the application.
+        - stop               Stop the application.
+
+		- startDev           Start the application in a development env.
 '
 
 ########################################################
 ###                     Variables                    ###
 ########################################################
+
+# Project name
+if [[ -z $PROJECT_NAME ]]; then
+    echo 'Error: Set the "PROJECT_NAME" variable'
+    exit 1
+fi
 
 # Node environment
 if [[ -z $NODE_ENV ]]; then
@@ -31,6 +42,9 @@ fi
 
 # Node
 NODE='node'
+
+# Process manager
+PROCESS_MANAGER='pm2'
 
 ########################################################
 ###                      Export                      ###
@@ -52,6 +66,22 @@ printTitle() {
     echo "===> $1"
 }
 
+#
+# Print info until start application
+#
+printInfoBeforeStart() {
+    echo "User:            $(whoami)"
+    echo "Environment:     $NODE_ENV"
+    echo "Nodejs version:  $("$NODE" --version)"
+}
+
+#
+# Check if the application is running
+#
+isAppRunning() {
+    "$PROCESS_MANAGER" id "$PROJECT_NAME" | tail -1 | grep -E '[0-9]+' > /dev/null
+}
+
 ########################################################
 ###                     Actions                      ###
 ########################################################
@@ -69,11 +99,63 @@ help() {
 start() {
     printTitle 'Running the application'
 
-    echo "User:            $(whoami)"
-    echo "Environment:     $NODE_ENV"
-    echo "Nodejs version:  $("$NODE" --version)"
+    if isAppRunning; then
+        echo '[warn] Application already started'
+    else
+        printInfoBeforeStart
 
-    "$NODE" index
+        "$PROCESS_MANAGER" start index.js \
+            -n "$PROJECT_NAME" \
+            --no-autorestart \
+            --log-date-format='YYYY-MM-DD HH:mm:ss.SSS'
+    fi
+}
+
+startDev() {
+	printTitle 'Running the application'
+	printInfoBeforeStart
+
+	"$NODE" index
+}
+
+#
+# Restart the application
+#
+restart() {
+    printTitle 'Restarting the application'
+
+    if isAppRunning; then
+        printInfoBeforeStart
+
+        "$PROCESS_MANAGER" restart "$PROJECT_NAME" --update-env
+    else
+        echo "[warn] Application isn't running"
+    fi
+}
+
+#
+# Start or restart the application
+#
+startOrRestart() {
+
+    if isAppRunning; then
+        restart
+    else
+        start
+    fi
+}
+
+#
+# Stop the application
+#
+stop() {
+    printTitle 'Stopping the application'
+
+    if isAppRunning; then
+        "$PROCESS_MANAGER" delete "$PROJECT_NAME"
+    else
+        echo '[warn] Application already stopped'
+    fi
 }
 
 ########################################################
@@ -81,7 +163,7 @@ start() {
 ########################################################
 
 case "$1" in
-    start)
+    start|restart|startOrRestart|stop|startDev)
         "$1"
     ;;
     *)
